@@ -84,7 +84,14 @@ module.exports = function(grunt) {
 
     shell: {
       prodServer: {
-        command: 'git push azure master'
+        command: function(){
+          console.log("Pushing to azure");
+          return 'git push azure master';
+        },
+        options: {
+          stdout: true
+        }
+        
       }
     },
   });
@@ -125,7 +132,7 @@ module.exports = function(grunt) {
     'jshint',
     'cssmin',
   ]);
-
+//hello
 
   grunt.registerTask('upload', function(n) {
     if(grunt.option('prod')) {
