@@ -84,7 +84,7 @@ module.exports = function(grunt) {
 
     shell: {
       prodServer: {
-        command: 'nodemon <%= nodemon.dev %>'
+        command: 'git push azure master'
       }
     },
   });
@@ -120,27 +120,27 @@ module.exports = function(grunt) {
   ]);
 
   grunt.registerTask('build', [
-    'pkg',
     'concat',
-    'nodemon',
     'uglify',
     'jshint',
     'cssmin',
-    'watch',
-    'shell'
   ]);
+
 
   grunt.registerTask('upload', function(n) {
     if(grunt.option('prod')) {
-      // add your production server task here
+      //git push azure master
+      grunt.task.run([ 'shell:prodServer' ]);
     } else {
       grunt.task.run([ 'server-dev' ]);
     }
   });
 
-  grunt.registerTask('deploy', [
-    // add your deploy tasks here
-  ]);
+  grunt.registerTask('deploy', function(){
+    grunt.task.run([ 'build' ]);
+    grunt.task.run([ 'test' ]);
+    grunt.task.run([ 'upload' ]);
+  });
 
 
 };
