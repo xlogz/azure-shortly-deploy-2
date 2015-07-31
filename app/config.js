@@ -7,7 +7,13 @@ var mongoose = require('mongoose');
 // var Promise = require('bluebird');
 
 //var host = process.env.IP || 'localhost';
-var db = mongoose.connect('mongodb://localhost/shortlydb');
+var host;
+if(process.env){
+  host = 'MongoLab-2:eBLFnZ6iiPVNwSNBnrI.waWl58lUQBeb_XkS2QnWK1w-@ds034878.mongolab.com:34878/MongoLab-2';
+}else{
+  host = 'localhost/shortlydb';
+}
+var db = mongoose.connect('mongodb://'+host);
 
 // var urls = mongoose.Schema({
 //     id: Number,
